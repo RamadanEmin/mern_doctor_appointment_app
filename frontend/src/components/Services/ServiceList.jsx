@@ -1,4 +1,5 @@
 import { services } from '../../../public/assets/data/services';
+import ServiceCard from './ServiceCard';
 
 const ServiceList = () => {
     return (
