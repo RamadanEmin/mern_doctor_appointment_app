@@ -1,6 +1,10 @@
+import { faqs } from '../../../public/assets/data/faqs';
+
 const FaqList = () => {
     return (
-        <div>FaqList</div>
+        <ul className="mt-[38px]">
+            {faqs.map((item, index) => <FaqItem key={index} item={item} />)}
+        </ul>
     );
 };
 
