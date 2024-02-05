@@ -1,4 +1,5 @@
 import { doctors } from '../../../public/assets/data/doctors';
+import DoctorCard from './DoctorCard';
 
 const DoctorList = () => {
     return (
