@@ -1,4 +1,5 @@
 import { faqs } from '../../../public/assets/data/faqs';
+import FaqItem from './FaqItem';
 
 const FaqList = () => {
     return (
