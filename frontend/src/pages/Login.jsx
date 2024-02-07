@@ -1,6 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     return (
         <section className="px-5 lg:px-0">
             <div className="w-full max-w-[570px] mx-auto rounded-lg shadow-md md:p-10">
@@ -14,6 +24,8 @@ const Login = () => {
                             type="email"
                             placeholder="Enter Your Email"
                             name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
                             className="w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none
                             focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor
                             cursor-pointer"
@@ -26,6 +38,8 @@ const Login = () => {
                             type="password"
                             placeholder="Password"
                             name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
                             className="w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none
                             focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor
                             cursor-pointer"

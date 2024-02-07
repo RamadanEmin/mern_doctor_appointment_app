@@ -1,6 +1,26 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        photo: selectedFile,
+        gender: '',
+        role: 'patient'
+    });
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleFileInputChange = async (event) => {
+        const file = event.target.files[0];
+    };
+
     return (
         <section className="px-5 xl:px-0">
             <div className="max-w-[1170px] mx-auto">
@@ -22,6 +42,8 @@ const Signup = () => {
                                     type="text"
                                     placeholder="Full Name"
                                     name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
                                     className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none
                                                 focus:border-b-primaryColor text-[16px] leading-7 text-headingColor
                                                 placeholder:text-textColor cursor-pointer"
@@ -33,6 +55,8 @@ const Signup = () => {
                                     type="email"
                                     placeholder="Enter your email"
                                     name="email"
+                                    value={formData.email}
+                                    onChange={handleInputChange}
                                     className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none
                                                 focus:border-b-primaryColor text-[16px] leading-7 text-headingColor
                                                 placeholder:text-textColor cursor-pointer"
@@ -44,6 +68,8 @@ const Signup = () => {
                                     type="password"
                                     placeholder="Password"
                                     name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
                                     className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none
                                                 focus:border-b-primaryColor text-[16px] leading-7 text-headingColor
                                                 placeholder:text-textColor cursor-pointer"
@@ -56,6 +82,8 @@ const Signup = () => {
                                     Are you a:
                                     <select
                                         name="role"
+                                        value={formData.role}
+                                        onChange={handleInputChange}
                                         className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                                     >
                                         <option value="patient">Patient</option>
@@ -67,6 +95,8 @@ const Signup = () => {
                                     Gender:
                                     <select
                                         name="gender"
+                                        value={formData.gender}
+                                        onChange={handleInputChange}
                                         className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                                     >
                                         <option value="">Select</option>
@@ -88,6 +118,7 @@ const Signup = () => {
                                         type="file"
                                         name="photo"
                                         id="customFile"
+                                        onChange={handleFileInputChange}
                                         accept=".jpg, .png"
                                         className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
                                     />
