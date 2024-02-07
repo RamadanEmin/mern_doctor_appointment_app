@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { formateDate } from '../../utils/formateDate';
 import { AiFillStar } from 'react-icons/ai';
+import FeedbackForm from './FeedbackForm';
 
 const Feedback = () => {
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
@@ -46,6 +47,8 @@ const Feedback = () => {
                     </button>
                 </div>
             )}
+
+            {showFeedbackForm && <FeedbackForm />}
         </div>
     );
 };
