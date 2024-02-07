@@ -1,4 +1,5 @@
 import { doctors } from '../../../public/assets/data/doctors';
+import DoctorCard from '../../components/Doctors/DoctorCard';
 import Testimonial from '../../components/Testimonial/Testimonial';
 
 const Doctors = () => {
