@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DoctorAbout from './DoctorAbout';
+import Feedback from './Feedback';
 
 const DoctorDetails = () => {
     const [tab, setTab] = useState('about');
@@ -57,6 +58,7 @@ const DoctorDetails = () => {
 
                         <div className="mt-[50px]">
                             {tab === 'about' && <DoctorAbout />}
+                            {tab === 'feedback' && <Feedback />}
                         </div>
                     </div>
                 </div>
