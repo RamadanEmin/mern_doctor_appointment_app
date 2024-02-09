@@ -1,0 +1,13 @@
+import User from "../models/UserSchema.js";
+
+export const getSingleUser = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const user = await User.findById(id).select('-password');
+
+        res.status(200).json({ success: true, message: 'User found', data: user });
+    } catch (err) {
+        res.status(404).json({ success: false, message: 'User not found' });
+    }
+};
