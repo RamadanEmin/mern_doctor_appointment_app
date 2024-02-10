@@ -7,6 +7,7 @@ import Contact from '../pages/Contact';
 import Signup from '../pages/Signup';
 import Login from '../pages/Login';
 import MyAccount from '../Dashboard/user-account/MyAccount';
+import ProtectedRoute from './ProtectedRoute';
 
 const Routers = () => {
     return (
@@ -18,7 +19,13 @@ const Routers = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/register' element={<Signup />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/users/profile/me' element={<MyAccount />}/>
+            <Route
+                path='/users/profile/me'
+                element={
+                    <ProtectedRoute allowedRoles={['patient']}>
+                        <MyAccount />
+                    </ProtectedRoute>}
+            />
         </Routes>
     );
 };
