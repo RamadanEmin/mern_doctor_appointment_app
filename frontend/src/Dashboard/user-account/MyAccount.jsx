@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuthContext } from '../../context/AuthContext.jsx';
 import useGetProfile from '../../hooks/useFetchData.jsx';
 import { BASE_URL } from '../../config.js';
+import Loading from '../../components/Loader/Loading.jsx';
 
 const MyAccount = () => {
     const { dispatch } = useAuthContext();
@@ -16,6 +17,8 @@ const MyAccount = () => {
     return (
         <section>
             <div className="max-w-[1170px] px-5 mx-auto">
+                {loading && !error && <Loading />}
+
                 {!loading && !error && (
                     <div className="grid md:grid-cols-3 gap-10">
                         <div className="pb-[50px] px-[30px] rounded-md">
