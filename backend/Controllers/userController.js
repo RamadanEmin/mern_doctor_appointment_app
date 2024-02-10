@@ -11,3 +11,13 @@ export const getSingleUser = async (req, res) => {
         res.status(404).json({ success: false, message: 'User not found' });
     }
 };
+
+export const getAllUser = async (req, res) => {
+    try {
+        const users = await User.find().select('-password');
+
+        res.status(200).json({ success: true, message: 'Users found', data: users });
+    } catch (err) {
+        res.status(404).json({ success: false, message: 'Not found' });
+    }
+};
