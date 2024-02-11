@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useAuthContext } from '../../context/AuthContext.jsx';
+import MyBookings from './MyBookings.jsx';
+import Profile from './Profile.jsx';
 import useGetProfile from '../../hooks/useFetchData.jsx';
 import { BASE_URL } from '../../config.js';
 import Loading from '../../components/Loader/Loading.jsx';
@@ -82,6 +84,9 @@ const MyAccount = () => {
                                     Profile Settings
                                 </button>
                             </div>
+
+                            {tab === 'bookings' && <MyBookings />}
+
                         </div>
                     </div>
                 )}
