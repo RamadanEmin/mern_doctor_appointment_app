@@ -1,20 +1,49 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext.jsx';
 import MyBookings from './MyBookings.jsx';
 import Profile from './Profile.jsx';
 import useGetProfile from '../../hooks/useFetchData.jsx';
-import { BASE_URL } from '../../config.js';
+import { BASE_URL, token } from '../../config.js';
 import Loading from '../../components/Loader/Loading.jsx';
 import Error from '../../components/Error/Error.jsx';
+import { toast } from 'react-toastify';
 
 const MyAccount = () => {
     const { dispatch } = useAuthContext();
     const [tab, setTab] = useState('bookings');
 
+    const navigate = useNavigate();
+
     const { data: userData, loading, error } = useGetProfile(`${BASE_URL}/users/profile/me`);
+
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
     };
+
+    const deleteUserHandle = async () => {
+        try {
+            const res = await fetch(`${BASE_URL}/users/${userData._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            toast.success(result.message);
+            handleLogout();
+            navigate('/login');
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
+
 
     return (
         <section>
@@ -57,7 +86,10 @@ const MyAccount = () => {
                                     className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white">
                                     Logout
                                 </button>
-                                <button className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
+                                <button
+                                    onClick={deleteUserHandle}
+                                    className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white"
+                                >
                                     Delete account
                                 </button>
                             </div>
