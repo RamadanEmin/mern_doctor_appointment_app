@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import HashLoader from 'react-spinners/HashLoader.js';
 import uploadImageToCloudinary from '../../utils/uploadCloudinary.js';
+import { BASE_URL, token } from '../../config.js';
 
 const Profile = ({ user }) => {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -14,6 +19,8 @@ const Profile = ({ user }) => {
         gender: '',
         bloodType: ''
     });
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setFormData({
@@ -38,9 +45,38 @@ const Profile = ({ user }) => {
         setFormData({ ...formData, photo: data?.url });
     };
 
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        try {
+            const res = await fetch(`${BASE_URL}/users/${user._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const { message } = await res.json();
+
+            if (!res.ok) {
+                throw new Error(message);
+            }
+
+            setLoading(false);
+            toast.success(message);
+            navigate('/users/profile/me');
+        } catch (err) {
+            toast.error(err.message);
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="mt-10">
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mb-5">
                     <input
                         type="text"
@@ -143,10 +179,14 @@ const Profile = ({ user }) => {
 
                 <div className="mt-7">
                     <button
+                        disabled={loading && true}
                         type="submit"
                         className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
                     >
-                        Update
+                        {loading
+                            ? <HashLoader size={25} color='#ffffff' />
+                            : 'Update'
+                        }
                     </button>
                 </div>
             </form>
