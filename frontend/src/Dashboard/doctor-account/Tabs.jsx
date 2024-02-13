@@ -1,8 +1,17 @@
 /* eslint-disable react/prop-types */
 
 import { BiMenu } from 'react-icons/bi';
+import { useAuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Tabs = ({ tab, setTab }) => {
+    const { dispatch } = useAuthContext();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch({ type: 'LOGOUT' });
+        navigate('/');
+    };
 
     return (
         <div>
@@ -42,6 +51,7 @@ const Tabs = ({ tab, setTab }) => {
 
                 <div className="mt-[100px] w-full">
                     <button
+                        onClick={handleLogout}
                         className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white">
                         Logout
                     </button>
