@@ -3,14 +3,39 @@
 import { BiMenu } from 'react-icons/bi';
 import { useAuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL, token } from '../../config';
+import { toast } from 'react-toastify';
 
-const Tabs = ({ tab, setTab }) => {
+const Tabs = ({ tab, setTab, doctorId }) => {
     const { dispatch } = useAuthContext();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
         navigate('/');
+    };
+
+    const deleteDoctorHandle = async () => {
+        try {
+            const res = await fetch(`${BASE_URL}/doctors/${doctorId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            toast.success(result.message);
+            handleLogout();
+            navigate('/login');
+        } catch (err) {
+            toast.error(err.message);
+        }
     };
 
     return (
@@ -55,7 +80,9 @@ const Tabs = ({ tab, setTab }) => {
                         className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white">
                         Logout
                     </button>
-                    <button className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
+                    <button
+                        onClick={deleteDoctorHandle}
+                        className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
                         Delete account
                     </button>
                 </div>
