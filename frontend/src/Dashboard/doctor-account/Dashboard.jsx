@@ -5,6 +5,7 @@ import useGetProfile from '../../hooks/useFetchData';
 import { BASE_URL } from '../../config';
 import Tabs from './Tabs';
 import DoctorAbout from '../../pages/Doctors/DoctorAbout';
+import Profile from './Profile';
 
 const Dashboard = () => {
     const [tab, setTab] = useState('overview');
@@ -92,6 +93,7 @@ const Dashboard = () => {
                                     />
                                 </div>
                             )}
+                            {tab === 'settings' && <Profile doctorData={data} />}
                         </div>
                     </div>
                 </div>
