@@ -43,3 +43,15 @@ export const getDoctorProfile = async (req, res) => {
         res.status(500).json({ success: false, message: 'Something went wrong, cannot get' });
     }
 };
+
+export const deleteDoctor = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await Doctor.findByIdAndDelete(id);
+
+        res.status(200).json({ success: true, message: 'Successfully deleted' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to delete' });
+    }
+};
