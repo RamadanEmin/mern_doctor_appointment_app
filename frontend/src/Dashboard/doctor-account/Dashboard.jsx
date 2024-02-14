@@ -4,6 +4,7 @@ import Error from '../../components/Error/Error';
 import useGetProfile from '../../hooks/useFetchData';
 import { BASE_URL } from '../../config';
 import Tabs from './Tabs';
+import DoctorAbout from '../../pages/Doctors/DoctorAbout';
 
 const Dashboard = () => {
     const [tab, setTab] = useState('overview');
@@ -83,6 +84,12 @@ const Dashboard = () => {
                                             </p>
                                         </div>
                                     </div>
+                                    <DoctorAbout
+                                        name={data.name}
+                                        about={data.about}
+                                        qualifications={data.qualifications}
+                                        experiences={data.experiences}
+                                    />
                                 </div>
                             )}
                         </div>
