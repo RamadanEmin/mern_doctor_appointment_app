@@ -1,6 +1,29 @@
 /* eslint-disable react/prop-types */
 
+import { useEffect, useState } from 'react';
+
 const Profile = ({ doctorData }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: doctorData.email,
+        password: '',
+        phone: '',
+        bio: '',
+    });
+
+    useEffect(() => {
+        setFormData({
+            name: doctorData?.name,
+            email: doctorData?.email,
+            phone: doctorData?.phone,
+            bio: doctorData?.bio,
+        });
+    }, [doctorData]);
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     return (
         <div>
             <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -13,6 +36,8 @@ const Profile = ({ doctorData }) => {
                     <input
                         type="text"
                         name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
                         placeholder="Full Name"
                         className="form__input"
                     />
@@ -23,6 +48,8 @@ const Profile = ({ doctorData }) => {
                     <input
                         type="email"
                         name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         placeholder="Email"
                         className="form__input"
                         readOnly
@@ -36,6 +63,8 @@ const Profile = ({ doctorData }) => {
                     <input
                         type="number"
                         name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
                         placeholder="Phone number"
                         className="form__input"
                     />
@@ -46,6 +75,8 @@ const Profile = ({ doctorData }) => {
                     <input
                         type="text"
                         name="bio"
+                        value={formData.bio}
+                        onChange={handleInputChange}
                         placeholder="Bio"
                         className="form__input"
                         maxLength={100}
