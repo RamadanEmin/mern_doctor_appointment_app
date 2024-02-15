@@ -81,6 +81,22 @@ const Profile = ({ doctorData }) => {
         deleteItem('qualifications', index);
     };
 
+    const addExperience = (e) => {
+        e.preventDefault();
+
+        addItem('experiences', { startingDate: '', endingDate: '', position: '', hospital: '' });
+    };
+
+    const handleExperienceChange = (event, index) => {
+        handleReusableInputChangeFunc('experiences', index, event);
+    };
+
+    const deleteExperience = (e, index) => {
+        e.preventDefault();
+
+        deleteItem('experiences', index);
+    };
+
     return (
         <div>
             <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -268,6 +284,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="date"
                                             name="startingDate"
+                                            value={item.startingDate}
+                                            onChange={(e) => handleExperienceChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -277,6 +295,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="date"
                                             name="endingDate"
+                                            value={item.endingDate}
+                                            onChange={(e) => handleExperienceChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -288,6 +308,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="text"
                                             name="position"
+                                            value={item.position}
+                                            onChange={(e) => handleExperienceChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -297,12 +319,15 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="text"
                                             name="hospital"
+                                            value={item.hospital}
+                                            onChange={(e) => handleExperienceChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
                                 </div>
 
                                 <button
+                                    onClick={(e) => deleteExperience(e, index)}
                                     className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"
                                 >
                                     <AiOutlineDelete />
@@ -312,6 +337,7 @@ const Profile = ({ doctorData }) => {
                     ))}
 
                     <button
+                        onClick={addExperience}
                         className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">
                         Add Experience
                     </button>
