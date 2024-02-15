@@ -33,6 +33,35 @@ const Profile = ({ doctorData }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const addItem = (key, item) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [key]: [...prevFormData[key], item]
+        }));
+    };
+
+    const handleReusableInputChangeFunc = (key, index, event) => {
+        const { name, value } = event.target;
+
+        setFormData(prevFormData => {
+            const updateItems = [...prevFormData[key]];
+
+            updateItems[index][name] = value;
+
+            return {
+                ...prevFormData,
+                [key]: updateItems
+            };
+        });
+    };
+
+    const deleteItem = (key, index) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [key]: prevFormData[key].filter((_, i) => i !== index)
+        }));
+    };
+
     return (
         <div>
             <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -178,12 +207,15 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="text"
                                             name="university"
+                                            value={item.university}
+                                            onChange={(e) => handleQualificationChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
                                 </div>
 
                                 <button
+                                    onClick={(e) => deleteQualification(e, index)}
                                     className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"
                                 >
                                     <AiOutlineDelete />
@@ -193,6 +225,7 @@ const Profile = ({ doctorData }) => {
                     ))}
 
                     <button
+                        onClick={addQualification}
                         className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer"
                     >
                         Add Qualification
