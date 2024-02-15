@@ -62,6 +62,23 @@ const Profile = ({ doctorData }) => {
         }));
     };
 
+    const addQualification = (e) => {
+        e.preventDefault();
+
+        addItem('qualifications', { startingDate: '', endingDate: '', degree: '', university: '' });
+
+    };
+
+    const handleQualificationChange = (event, index) => {
+        handleReusableInputChangeFunc('qualifications', index, event);
+    };
+
+    const deleteQualification = (e, index) => {
+        e.preventDefault();
+
+        deleteItem('qualifications', index);
+    };
+
     return (
         <div>
             <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -178,6 +195,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="date"
                                             name="startingDate"
+                                            value={item.startingDate}
+                                            onChange={(e) => handleQualificationChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -187,6 +206,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="date"
                                             name="endingDate"
+                                            value={item.endingDate}
+                                            onChange={(e) => handleQualificationChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -198,6 +219,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="text"
                                             name="degree"
+                                            value={item.degree}
+                                            onChange={(e) => handleQualificationChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
