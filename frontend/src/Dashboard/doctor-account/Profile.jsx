@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useState } from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const Profile = ({ doctorData }) => {
     const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Profile = ({ doctorData }) => {
         gender: '',
         specialization: '',
         ticketPrice: 0,
+        qualifications: [],
     });
 
     useEffect(() => {
@@ -23,6 +25,7 @@ const Profile = ({ doctorData }) => {
             gender: doctorData?.gender,
             specialization: doctorData?.specialization,
             ticketPrice: doctorData?.ticketPrice,
+            qualifications: doctorData?.qualifications,
         });
     }, [doctorData]);
 
@@ -133,6 +136,67 @@ const Profile = ({ doctorData }) => {
                             />
                         </div>
                     </div>
+                </div>
+
+                <div className="mb-5">
+                    <p className="form__label">Qualification*</p>
+                    {formData.qualifications?.map((item, index) => (
+                        <div key={index}>
+                            <div>
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div>
+                                        <p className="form__label">Starting Date*</p>
+                                        <input
+                                            type="date"
+                                            name="startingDate"
+                                            className="form__input"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <p className="form__label">Ending Date*</p>
+                                        <input
+                                            type="date"
+                                            name="endingDate"
+                                            className="form__input"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-5 mt-5">
+                                    <div>
+                                        <p className="form__label">Degree*</p>
+                                        <input
+                                            type="text"
+                                            name="degree"
+                                            className="form__input"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <p className="form__label">University*</p>
+                                        <input
+                                            type="text"
+                                            name="university"
+                                            className="form__input"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"
+                                >
+                                    <AiOutlineDelete />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+
+                    <button
+                        className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer"
+                    >
+                        Add Qualification
+                    </button>
                 </div>
 
                 <div className="mt-7">
