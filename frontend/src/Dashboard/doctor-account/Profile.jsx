@@ -14,6 +14,7 @@ const Profile = ({ doctorData }) => {
         specialization: '',
         ticketPrice: 0,
         qualifications: [],
+        experiences: [],
     });
 
     useEffect(() => {
@@ -26,6 +27,7 @@ const Profile = ({ doctorData }) => {
             specialization: doctorData?.specialization,
             ticketPrice: doctorData?.ticketPrice,
             qualifications: doctorData?.qualifications,
+            experiences: doctorData?.experiences,
         });
     }, [doctorData]);
 
@@ -252,6 +254,66 @@ const Profile = ({ doctorData }) => {
                         className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer"
                     >
                         Add Qualification
+                    </button>
+                </div>
+
+                <div className="mb-5">
+                    <p className="form__label">Experiences*</p>
+                    {formData.experiences?.map((item, index) => (
+                        <div key={index}>
+                            <div>
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div>
+                                        <p className="form__label">Starting Date*</p>
+                                        <input
+                                            type="date"
+                                            name="startingDate"
+                                            className="form__input"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <p className="form__label">Ending Date*</p>
+                                        <input
+                                            type="date"
+                                            name="endingDate"
+                                            className="form__input"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-5 mt-5">
+                                    <div>
+                                        <p className="form__label">Position*</p>
+                                        <input
+                                            type="text"
+                                            name="position"
+                                            className="form__input"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <p className="form__label">Hospital*</p>
+                                        <input
+                                            type="text"
+                                            name="hospital"
+                                            className="form__input"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    className="bg-red-600 p-2 rounded-full text-white text-[18px] mt-2 mb-[30px] cursor-pointer"
+                                >
+                                    <AiOutlineDelete />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+
+                    <button
+                        className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer">
+                        Add Experience
                     </button>
                 </div>
 
