@@ -16,6 +16,7 @@ const Profile = ({ doctorData }) => {
         qualifications: [],
         experiences: [],
         timeSlots: [],
+        about: '',
     });
 
     useEffect(() => {
@@ -30,6 +31,7 @@ const Profile = ({ doctorData }) => {
             qualifications: doctorData?.qualifications,
             experiences: doctorData?.experiences,
             timeSlots: doctorData?.timeSlots,
+            about: doctorData?.about,
         });
     }, [doctorData]);
 
@@ -427,6 +429,18 @@ const Profile = ({ doctorData }) => {
                     >
                         Add TimeSlot
                     </button>
+                </div>
+
+                <div className="mb-5">
+                    <p className="form__label">About*</p>
+                    <textarea
+                        name="about"
+                        rows={5}
+                        value={formData.about}
+                        placeholder="Write about you"
+                        onChange={handleInputChange}
+                        className="form__input"
+                    ></textarea>
                 </div>
 
                 <div className="mt-7">
