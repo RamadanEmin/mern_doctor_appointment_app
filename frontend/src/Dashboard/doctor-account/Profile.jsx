@@ -99,6 +99,22 @@ const Profile = ({ doctorData }) => {
         deleteItem('experiences', index);
     };
 
+    const addTimeSlot = (e) => {
+        e.preventDefault();
+
+        addItem('timeSlots', { day: '', startingTime: '', endingTime: '' });
+    };
+
+    const handleTimeSlotChange = (event, index) => {
+        handleReusableInputChangeFunc('timeSlots', index, event);
+    };
+
+    const deleteTimeSlot = (e, index) => {
+        e.preventDefault();
+
+        deleteItem('timeSlots', index);
+    };
+
     return (
         <div>
             <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -355,6 +371,8 @@ const Profile = ({ doctorData }) => {
                                         <p className="form__label">Day*</p>
                                         <select
                                             name="day"
+                                            value={item.day}
+                                            onChange={(e) => handleTimeSlotChange(e, index)}
                                             className="form__input py-3.5"
                                         >
                                             <option value="">Select</option>
@@ -373,6 +391,8 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="time"
                                             name="startingTime"
+                                            value={item.startingTime}
+                                            onChange={(e) => handleTimeSlotChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
@@ -382,12 +402,15 @@ const Profile = ({ doctorData }) => {
                                         <input
                                             type="time"
                                             name="endingTime"
+                                            value={item.endingTime}
+                                            onChange={(e) => handleTimeSlotChange(e, index)}
                                             className="form__input"
                                         />
                                     </div>
 
                                     <div className="flex items-center">
                                         <button
+                                            onClick={(e) => deleteTimeSlot(e, index)}
                                             className="bg-red-600 p-2 rounded-full text-white text-[18px] cursor-pointer mt-9"
                                         >
                                             <AiOutlineDelete />
@@ -399,6 +422,7 @@ const Profile = ({ doctorData }) => {
                     ))}
 
                     <button
+                        onClick={addTimeSlot}
                         className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer"
                     >
                         Add TimeSlot
