@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 import uploadImageToCloudinary from '../../utils/uploadCloudinary';
+import { BASE_URL, token } from '../../config';
 
 const Profile = ({ doctorData }) => {
     const [formData, setFormData] = useState({
@@ -47,6 +49,31 @@ const Profile = ({ doctorData }) => {
         const data = await uploadImageToCloudinary(file);
 
         setFormData({ ...formData, photo: data?.url });
+    };
+
+    const updateProfileHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            toast.success(result.message);
+        } catch (err) {
+            toast.error(err.message);
+        }
     };
 
     const addItem = (key, item) => {
@@ -485,6 +512,7 @@ const Profile = ({ doctorData }) => {
                 <div className="mt-7">
                     <button
                         type="submit"
+                        onClick={updateProfileHandler}
                         className="bg-primaryColor text-white text-[18px] leading-[30px] w-full py-3 px-4 rounded-lg">
                         Update Profile
                     </button>
