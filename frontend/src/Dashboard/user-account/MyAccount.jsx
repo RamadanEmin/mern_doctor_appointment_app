@@ -19,6 +19,7 @@ const MyAccount = () => {
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' });
+        navigate('/');
     };
 
     const deleteUserHandle = async () => {

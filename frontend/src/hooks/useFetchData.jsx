@@ -30,6 +30,7 @@ const useFetchData = (url) => {
                 setError(err.message);
             }
         };
+        
         fetchData();
     }, [url]);
 
