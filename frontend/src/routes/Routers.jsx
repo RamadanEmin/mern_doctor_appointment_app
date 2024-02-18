@@ -9,6 +9,7 @@ import Login from '../pages/Login';
 import MyAccount from '../Dashboard/user-account/MyAccount';
 import Dashboard from '../Dashboard/doctor-account/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
+import CheckoutSuccess from '../pages/CheckoutSuccess';
 
 const Routers = () => {
     return (
@@ -20,6 +21,7 @@ const Routers = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/register' element={<Signup />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/checkout-success' element={<CheckoutSuccess />} />
             <Route
                 path='/users/profile/me'
                 element={
